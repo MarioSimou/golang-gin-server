@@ -1,24 +1,21 @@
 steps:
-  - name: 'gcr.io/cloud-builders/docker'
+  - name: gcr.io/kaniko-project/executor:latest
+    id: agent
     args:
-      - 'build'
-      - '-t'
-      - 'europe-west3-docker.pkg.dev/correctify-dev/playground/golang-gin-server'
-      - '-f'
-      - 'Dockerfile'
-      - '.' 
-
-  - name: 'gcr.io/cloud-builders/docker'
-    args: 
-      - 'push'
-      - 'europe-west3-docker.pkg.dev/correctify-dev/playground/golang-gin-server'
-
-  - name: 'gcr.io/cloud-builders/gcloud'
-    script: |
-      gcloud run services update golang-gin-server --image europe-west3-docker.pkg.dev/correctify-dev/playground/golang-gin-server --region europe-west3
+      - "--destination=europe-west1-docker.pkg.dev/correctify-dev/playground/golang-gin-server"
+      - "--context=."
+      - "--cache=true"
+      - "--cache-ttl=10s"
+  
+  - name: gcr.io/cloud-builders/gcloud
+    args:
+      - "run"
+      - "deploy"
+      - "--region=europe-west1"
+      - "--image=europe-west1-docker.pkg.dev/correctify-dev/playground/golang-gin-server"
 
 options:
   logging: CLOUD_LOGGING_ONLY
 
 images:
-  - "europe-west3-docker.pkg.dev/correctify-dev/playground/golang-gin-server"
+  - "europe-west1-docker.pkg.dev/correctify-dev/playground/golang-gin-server"
