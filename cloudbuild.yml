@@ -8,11 +8,10 @@ steps:
       - "--cache-ttl=10s"
   
   - name: gcr.io/cloud-builders/gcloud
-    args:
-      - "run"
-      - "deploy"
-      - "--region=europe-west1"
-      - "--image=europe-west1-docker.pkg.dev/correctify-dev/playground/golang-gin-server"
+    waitFor:
+      - agent
+    script: |
+      gcloud run deploy --allow-unauthenticated --region=europe-west1 --image=europe-west1-docker.pkg.dev/correctify-dev/playground/golang-gin-server golang-gin-server
 
 options:
   logging: CLOUD_LOGGING_ONLY
