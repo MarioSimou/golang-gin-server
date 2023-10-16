@@ -26,6 +26,3 @@ steps:
 
 options:
   logging: CLOUD_LOGGING_ONLY
-
-images:
-  - "europe-west1-docker.pkg.dev/correctify-dev/playground/golang-gin-server:latest"
