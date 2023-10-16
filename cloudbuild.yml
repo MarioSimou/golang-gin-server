@@ -4,7 +4,7 @@ steps:
     env:
       - "SHORT_SHA=$SHORT_SHA"
     args:
-      - "--build-arg=$SHORT_SHA"
+      - "--build-arg SHORT_SHA=$SHORT_SHA"
       - "--destination=europe-west1-docker.pkg.dev/correctify-dev/playground/golang-gin-server:latest"
       - "--context=."
       - "--cache=true"

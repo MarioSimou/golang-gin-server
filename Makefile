@@ -1,11 +1,11 @@
 APP=golang-gin-server
 PROJECT=correctify-dev
-REGION=europe-west3
+REGION=europe-west1
 REPOSITORY=${REGION}-docker.pkg.dev
 IMAGE_NAME=${REPOSITORY}/${PROJECT}/playground/${APP}
 
 build:
-	@docker build -t ${IMAGE_NAME} -f ./Dockerfile .
+	@docker build -t ${IMAGE_NAME} --build-arg SHORT_SHA=${SHORT_SHA} -f ./Dockerfile .
 login:
 	@gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://${REPOSITORY}
 push:
