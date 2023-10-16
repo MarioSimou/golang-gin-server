@@ -20,7 +20,7 @@ steps:
     waitFor:
       - agent
     script: |
-      gcloud run deploy --allow-unauthenticated --region=europe-west1 --image=europe-west1-docker.pkg.dev/correctify-dev/playground/golang-gin-server:$SHORT_SHA golang-gin-server
+      gcloud run deploy --allow-unauthenticated --region=europe-west1 --image="europe-west1-docker.pkg.dev/correctify-dev/playground/golang-gin-server:${SHORT_SHA}" golang-gin-server
 
 options:
   logging: CLOUD_LOGGING_ONLY
