@@ -4,8 +4,8 @@ steps:
     env:
       - "SHORT_SHA=$SHORT_SHA"
     args:
-      - "--build-arg SHORT_SHA=$SHORT_SHA"
-      - "--destination=europe-west1-docker.pkg.dev/correctify-dev/playground/golang-gin-server:latest"
+      - "--build-arg=SHORT_SHA=$SHORT_SHA"
+      - "--destination=europe-west1-docker.pkg.dev/correctify-dev/playground/golang-gin-server:$SHORT_SHA"
       - "--context=."
       - "--cache=true"
       - "--cache-ttl=10s"
@@ -19,10 +19,12 @@ steps:
 
 
   - name: gcr.io/cloud-builders/gcloud
+    env:
+      - "SHORT_SHA=$SHORT_SHA"
     waitFor:
       - agent
     script: |
-      gcloud run services update --region=europe-west1 --image=europe-west1-docker.pkg.dev/correctify-dev/playground/golang-gin-server:latest golang-gin-server
+      gcloud run services update --region=europe-west1 --image="europe-west1-docker.pkg.dev/correctify-dev/playground/golang-gin-server:$SHORT_SHA" golang-gin-server
 
 options:
   logging: CLOUD_LOGGING_ONLY
