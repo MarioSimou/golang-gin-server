@@ -1,14 +1,14 @@
 steps:
   - name: 'gcr.io/cloud-builders/go:1.21'
     env:
-      - "PROJECT_ROOT=golang-gin-server"
+      - "GOPATH=/workspace"
     args:
       - "install"
       - "."
 
   - name: 'gcr.io/cloud-builders/go:1.21'
     env:
-      - "PROJECT_ROOT=golang-gin-server"
+      - "GOPATH=/workspace"
     script: |
       go test ./...
       go vet ./...
