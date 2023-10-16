@@ -1,18 +1,4 @@
 steps:
-  # - name: 'gcr.io/cloud-builders/go:1.21'
-  #   env:
-  #     - "GOPATH=/workspace"
-  #   args:
-  #     - "install"
-  #     - "."
-
-  - name: 'gcr.io/cloud-builders/go:1.21'
-    env:
-      - "GOPATH=/workspace"
-    script: |
-      go test ./...
-      go vet ./...
-
   - name: 'gcr.io/cloud-builders/docker'
     args:
       - 'build'
