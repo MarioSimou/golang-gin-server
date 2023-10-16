@@ -3,8 +3,5 @@ steps:
     script: |
       gcloud run services update golang-gin-server --image europe-west3-docker.pkg.dev/correctify-dev/playground/golang-gin-server --region europe-west3
 
-artifacts:
-  objects:
-    location: gs://correctify-dev-playground
-    paths:
-      - "golang-gin-server"
+options:
+  logging: CLOUD_LOGGING_ONLY
