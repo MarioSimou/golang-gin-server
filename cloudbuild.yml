@@ -12,6 +12,8 @@ steps:
   
   - name: gcr.io/cloud-builders/gcloud
     id: tagging
+    env:
+      - "SHORT_SHA=$SHORT_SHA"
     waitFor:
       - agent
     script: |
