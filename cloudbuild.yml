@@ -8,11 +8,19 @@ steps:
       - "--cache=true"
       - "--cache-ttl=10s"
   
+  # - name: gcr.io/cloud-builders/gcloud
+  #   id: tagging
+  #   waitFor:
+  #     - agent
+  #   script: |
+  #     gcloud artifacts tags create  --location=europe-west1 
+
+
   - name: gcr.io/cloud-builders/gcloud
     waitFor:
       - agent
     script: |
-      gcloud run deploy --allow-unauthenticated --region=europe-west1 --image=europe-west1-docker.pkg.dev/correctify-dev/playground/golang-gin-server golang-gin-server:$SHORT_SHA
+      gcloud run deploy --allow-unauthenticated --region=europe-west1 --image=europe-west1-docker.pkg.dev/correctify-dev/playground/golang-gin-server:$SHORT_SHA golang-gin-server
 
 options:
   logging: CLOUD_LOGGING_ONLY
