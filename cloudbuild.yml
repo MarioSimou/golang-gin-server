@@ -20,6 +20,7 @@ steps:
     waitFor:
       - agent
     script: |
+      echo "SHORT_SHA: ${SHORT_SHA}"
       gcloud run deploy --allow-unauthenticated --region=europe-west1 --image="europe-west1-docker.pkg.dev/correctify-dev/playground/golang-gin-server:${SHORT_SHA}" golang-gin-server
 
 options:
