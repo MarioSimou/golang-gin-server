@@ -5,7 +5,7 @@ steps:
       - "SHORT_SHA=$SHORT_SHA"
     args:
       - "--build-arg=$SHORT_SHA"
-      - "--destination=europe-west1-docker.pkg.dev/correctify-dev/playground/golang-gin-server"
+      - "--destination=europe-west1-docker.pkg.dev/correctify-dev/playground/golang-gin-server:latest"
       - "--context=."
       - "--cache=true"
       - "--cache-ttl=10s"
@@ -15,14 +15,14 @@ steps:
   #   waitFor:
   #     - agent
   #   script: |
-  #     gcloud artifacts tags create  --location=europe-west1 
+  #     gcloud artifacts docker tags add  --location=europe-west1 europe-west1-docker.pkg.dev/correctify-dev/playground/golang-gin-server:latest
 
 
   - name: gcr.io/cloud-builders/gcloud
     waitFor:
       - agent
     script: |
-      gcloud run deploy --allow-unauthenticated --region=europe-west1 --image="europe-west1-docker.pkg.dev/correctify-dev/playground/golang-gin-server:$SHORT_SHA" golang-gin-server
+      gcloud run services update --region=europe-west1 --image=europe-west1-docker.pkg.dev/correctify-dev/playground/golang-gin-server
 
 options:
   logging: CLOUD_LOGGING_ONLY
