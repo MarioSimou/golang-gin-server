@@ -20,6 +20,7 @@ func main() {
 	var address = fmt.Sprintf(":%s", port)
 
 	app.GET("/api/v1/ping", controllers.Ping)
+	app.GET("/api/v1/version", controllers.Verion)
 
 	app.Run(address)
 }

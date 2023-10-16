@@ -1,5 +1,8 @@
 FROM golang:1.21-alpine as build
 
+ARG SHORT_SHA
+ENV SHORT_SHA=${SHORT_SHA}
+
 WORKDIR /app
 COPY . .
 
