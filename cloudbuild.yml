@@ -1,4 +1,16 @@
 steps:
+  - name: 'gcr.io/cloud-builders/go'
+    args: ["fmt", "./..."]
+
+  - name: 'gcr.io/cloud-builders/go'
+    args: ["vet", "./..."]
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ["build", "-t", "europe-west3-docker.pkg.dev/correctify-dev/playground/golang-gin-server", "."]
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ["push", "europe-west3-docker.pkg.dev/correctify-dev/playground/golang-gin-server"]
+
   - name: 'gcr.io/cloud-builders/gcloud'
     script: |
       gcloud run services update golang-gin-server --image europe-west3-docker.pkg.dev/correctify-dev/playground/golang-gin-server --region europe-west3
