@@ -1,9 +1,5 @@
 steps:
   - name: 'gcr.io/cloud-builders/go'
-    script:
-      - "ls -al"
-
-  - name: 'gcr.io/cloud-builders/go'
     env:
       - "PROJECT_ROOT=golang-gin-server"
     args:
