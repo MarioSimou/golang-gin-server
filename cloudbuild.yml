@@ -1,19 +1,21 @@
 steps:
-  - name: 'golang:1.21'
-    entrypoint: /bin/bash
-    args:
-      - "-c"
-      - |
-        go install ./...
-        go fmt ./..
+  - name: 'gcr.io/cloud-builders/go'
+    script:
+      - "ls -al"
 
-  - name: 'golang:1.21'
-    entrypoint: /bin/bash
+  - name: 'gcr.io/cloud-builders/go'
+    env:
+      - "PROJECT_ROOT=golang-gin-server"
     args:
-      - "-c"
-      - /
-        go install ./...
-        go vet ./...
+      - "install"
+      - "."
+
+  - name: 'gcr.io/cloud-builders/go'
+    env:
+      - "PROJECT_ROOT=golang-gin-server"
+    script: |
+      go test ./...
+      go vet ./...
 
   - name: 'gcr.io/cloud-builders/docker'
     args:
@@ -35,3 +37,6 @@ steps:
 
 options:
   logging: CLOUD_LOGGING_ONLY
+
+images:
+  - "europe-west3-docker.pkg.dev/correctify-dev/playground/golang-gin-server"
