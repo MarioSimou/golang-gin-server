@@ -1,17 +1,19 @@
 steps:
-  - name: 'gcr.io/cloud-builders/go'
-    env:
-      - "PROJECT_ROOT=golang-gin-server"
-    args: 
-      - 'fmt'
-      - './...'
+  - name: 'golang:1.21'
+    entrypoint: /bin/bash
+    args:
+      - "-c"
+      - |
+        go install ./...
+        go fmt ./..
 
-  - name: 'gcr.io/cloud-builders/go'
-    env:
-      - "PROJECT_ROOT=golang-gin-server"
-    args: 
-      - 'vet'
-      - './...'
+  - name: 'golang:1.21'
+    entrypoint: /bin/bash
+    args:
+      - "-c"
+      - /
+        go install ./...
+        go vet ./...
 
   - name: 'gcr.io/cloud-builders/docker'
     args:
