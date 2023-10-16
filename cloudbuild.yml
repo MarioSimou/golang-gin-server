@@ -1,5 +1,9 @@
 steps:
   - name: gcr.io/cloud-builders/gcloud
+    env:
+      - "SHORT_SHA=$SHORT_SHA"
+      - "REPO_NAME=$REPO_NAME"
+      - "BRANCH_NAME=$BRANCH_NAME"
     script: |
       printenv
 
