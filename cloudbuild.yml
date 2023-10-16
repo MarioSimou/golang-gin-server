@@ -10,13 +10,12 @@ steps:
       - "--cache=true"
       - "--cache-ttl=10s"
   
-  # - name: gcr.io/cloud-builders/gcloud
-  #   id: tagging
-  #   waitFor:
-  #     - agent
-  #   script: |
-  #     gcloud artifacts docker tags add  --location=europe-west1 europe-west1-docker.pkg.dev/correctify-dev/playground/golang-gin-server:latest
-
+  - name: gcr.io/cloud-builders/gcloud
+    id: tagging
+    waitFor:
+      - agent
+    script: |
+      gcloud artifacts docker tags add "europe-west1-docker.pkg.dev/correctify-dev/playground/golang-gin-server:$SHORT_SHA" "europe-west1-docker.pkg.dev/correctify-dev/playground/golang-gin-server:latest"
 
   - name: gcr.io/cloud-builders/gcloud
     env:
