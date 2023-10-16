@@ -7,6 +7,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func Verion(c *gin.Context) {
+func Version(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"version": os.Getenv("SHORT_SHA")})
 }

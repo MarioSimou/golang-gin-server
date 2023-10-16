@@ -1,12 +1,4 @@
 steps:
-  - name: gcr.io/cloud-builders/gcloud
-    env:
-      - "SHORT_SHA=$SHORT_SHA"
-      - "REPO_NAME=$REPO_NAME"
-      - "BRANCH_NAME=$BRANCH_NAME"
-    script: |
-      printenv
-
   - name: gcr.io/kaniko-project/executor:latest
     id: agent
     env:
@@ -26,14 +18,13 @@ steps:
   #     gcloud artifacts tags create  --location=europe-west1 
 
 
-  - name: gcr.io/cloud-builders/gcloud
-    waitFor:
-      - agent
-    env:
-      - "SHORT_SHA=$SHORT_SHA"
-    script: |
-      echo "SHORT_SHA: ${SHORT_SHA}"
-      gcloud run deploy --allow-unauthenticated --region=europe-west1 --image="europe-west1-docker.pkg.dev/correctify-dev/playground/golang-gin-server:$SHORT_SHA" golang-gin-server
+  # - name: gcr.io/cloud-builders/gcloud
+  #   waitFor:
+  #     - agent
+  #   env:
+  #     - "SHORT_SHA=$SHORT_SHA"
+  #   script: |
+  #     gcloud run deploy --allow-unauthenticated --region=europe-west1 --image="europe-west1-docker.pkg.dev/correctify-dev/playground/golang-gin-server:$SHORT_SHA" golang-gin-server
 
 options:
   logging: CLOUD_LOGGING_ONLY
